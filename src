@@ -1,0 +1,39 @@
+-- Criação do banco de dados
+CREATE DATABASE RestauranteDB;
+USE RestauranteDB;
+
+-- Tabela Clientes
+CREATE TABLE Clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    telefone VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- Tabela Mesas
+CREATE TABLE Mesas (
+    id_mesa INT AUTO_INCREMENT PRIMARY KEY,
+    numero_mesa INT,
+    capacidade INT
+);
+
+-- Tabela Pedidos
+CREATE TABLE Pedidos (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_mesa INT,
+    data_pedido DATETIME,
+    total DECIMAL(10, 2),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
+    FOREIGN KEY (id_mesa) REFERENCES Mesas(id_mesa)
+);
+
+-- Tabela Itens_Pedido
+CREATE TABLE Itens_Pedido (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT,
+    descricao_item TEXT,
+    quantidade INT,
+    preco_unitario DECIMAL(10, 2),
+    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido)
+);
